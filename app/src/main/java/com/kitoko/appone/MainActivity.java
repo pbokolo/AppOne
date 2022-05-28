@@ -2,33 +2,56 @@ package com.kitoko.appone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import com.kitoko.appone.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // onCreate est la l'etape ou on initialise l'application
+        // C'est a dire l'IU et les donnees
 
-        // Deserialisation avec le viewBinding
-        ActivityMainBinding binding = ActivityMainBinding
-                .inflate(getLayoutInflater());
+        Toast.makeText(this, "Dans onCreate", Toast.LENGTH_LONG).show();
+    }
 
-        // Lien avec la vue
-        setContentView(binding.getRoot());
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "Dans onStart", Toast.LENGTH_LONG).show();
+    }
 
-        binding.clickBtn.setOnClickListener(v -> {
-            // L'objectif est de lancer la deuxieme activite
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // On restaure l'etat precedent de l'activite
 
-            // Definition de l'intention(intent) : veut partir de MainActivity a SecondActivity
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        Toast.makeText(this, "Dans onResume", Toast.LENGTH_LONG).show();
+    }
 
-            startActivity(intent);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Lorsque l'activite est partiellement cachee par une autre vue(ex. boite de dialogue)
+        Toast.makeText(this, "Dans onPause", Toast.LENGTH_LONG).show();
+    }
 
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Les actions a executer lorsque l'activite est stopee
+        // C'est a dire l'activite n'est plus visibe
+        // Par exemple la sauvegarde de l'etat de l'activite
+        Toast.makeText(this, "Dans onStop", Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Les actions a executer lorsque l'activite est detruite
+        // La savegarde des donnees dans la base des donnees
+        Toast.makeText(this, "Dans onDestroy", Toast.LENGTH_LONG).show();
     }
 }
