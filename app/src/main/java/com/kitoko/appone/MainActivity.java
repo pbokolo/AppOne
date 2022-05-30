@@ -1,9 +1,10 @@
 package com.kitoko.appone;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -11,47 +12,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // onCreate est la l'etape ou on initialise l'application
-        // C'est a dire l'IU et les donnees
+        setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "Dans onCreate", Toast.LENGTH_LONG).show();
+        // Recupere les preferences en mode prive
+        // Pour que seule notre application ait acces au fichier en question
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+
+        String uEmail = preferences.getString("email", "Rien");
+        String uMdp = preferences.getString("mdp", "Rien");
+
+       // Recupere la zone de saisie de l'email
+        EditText emailTxt = findViewById(R.id.emailTxt);
+        // Recupere la zone de saisie du mot de passe
+        EditText mdpTxt = findViewById(R.id.mdpTxt);
+        // Recupere le bouton de connexion
+        Button connexionBtn = findViewById(R.id.connexionBtn);
+
+        emailTxt.setText(uEmail);
+
+        mdpTxt.setText(uMdp);
+
+
+        // Ecoute l'evenement de clic
+        connexionBtn.setOnClickListener(v -> {
+            // Recupere l'email dans une variable de type string
+            String email= emailTxt.getText().toString();
+            // Recupere le mot de passe
+            String mdp = mdpTxt.getText().toString();
+
+            // Recupere l'objet editor a partir de l'objet preferences
+            SharedPreferences.Editor editor = preferences.edit();
+
+            // Met le email dans l'editor
+            editor.putString("email", email);
+            // Meme chose pour le mot de passe
+            editor.putString("mdp", mdp);
+
+            // Enregistre dans les preferences
+            editor.apply();
+
+        });
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Toast.makeText(this, "Dans onStart", Toast.LENGTH_LONG).show();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // On restaure l'etat precedent de l'activite
 
-        Toast.makeText(this, "Dans onResume", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Lorsque l'activite est partiellement cachee par une autre vue(ex. boite de dialogue)
-        Toast.makeText(this, "Dans onPause", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        // Les actions a executer lorsque l'activite est stopee
-        // C'est a dire l'activite n'est plus visibe
-        // Par exemple la sauvegarde de l'etat de l'activite
-        Toast.makeText(this, "Dans onStop", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Les actions a executer lorsque l'activite est detruite
-        // La savegarde des donnees dans la base des donnees
-        Toast.makeText(this, "Dans onDestroy", Toast.LENGTH_LONG).show();
-    }
 }
