@@ -12,12 +12,14 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        TextView usrnmLbl = findViewById(R.id.usrnmLbl);
 
+        // Recupere l'objet intent qui a lance cette activite
         Intent intent = getIntent();
+        // Recupere la donnee email(nom de la donnee) qui se trouve dans l'intent
+        String email = intent.getStringExtra("email");
 
-        String usrnm = intent.getStringExtra("usrname");
-        usrnmLbl.setText("Welcome "+usrnm);
+        TextView usrnmLbl = findViewById(R.id.usrnmLbl);
+        usrnmLbl.setText("Bienvenu "+email);
 
     }
 }

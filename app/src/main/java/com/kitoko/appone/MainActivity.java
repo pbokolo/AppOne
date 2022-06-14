@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                        // Lance la 2eme activite
                        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                       intent.putExtra("usrname", emailUt);
+                       intent.putExtra("email",emailUt);
                        startActivity(intent);
 
                    }else{
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     * 2. Envoyer l'intent a Android
                     */
                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                   intent.putExtra("usrname", emailUt);
+                   intent.putExtra("email", emailUt);
                    startActivity(intent);
 
                }
