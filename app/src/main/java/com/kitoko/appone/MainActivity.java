@@ -46,16 +46,10 @@ public class MainActivity extends AppCompatActivity {
                    // Comparer l'email que l'utilisateur a saisi et l'email qui existe
                    // Comparer le mot de passe que l'utilisateur a saisi et celui qui existe
                    if(emailUt.equals(emailEnr) && mdpUt.equals(mdpEnr)){
-
-                       // Lance la 2eme activite
-                       Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                       intent.putExtra("email",emailUt);
-                       startActivity(intent);
-
+                       lancerActivite(emailUt);
                    }else{
-
-                       Toast.makeText(MainActivity.this, "Informations invalides", Toast.LENGTH_SHORT).show();
-
+                       Toast.makeText(MainActivity.this,
+                               "Informations invalides", Toast.LENGTH_SHORT).show();
                    }
                }else{
                    // Place les information a enregistrer dans l'objet editor
@@ -64,29 +58,25 @@ public class MainActivity extends AppCompatActivity {
                    // Enregistre dans les preferences
                    editor.apply();
 
-                   /**
-                    * Pour lancer une activite, on passe par deux etapes
-                    * 1. Cree un objet de type Intent(intention) : context de depart et activite d'arrivee
-                    * 2. Envoyer l'intent a Android
-                    */
-                   Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                   intent.putExtra("email", emailUt);
-                   startActivity(intent);
+                   lancerActivite(emailUt);
 
                }
-
-
             }else{
-
-                Toast.makeText(MainActivity.this, "Informations incompletes", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this,
+                        "Informations incompletes", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    /**
+     * Lance l'activite SecondActivity
+     * @param email L'email de l'utilisateur
+     */
+    void lancerActivite(String email){
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.putExtra("email", email);
+        startActivity(intent);
+
     }
 }
